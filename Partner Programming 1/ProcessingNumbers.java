@@ -1,9 +1,10 @@
 /**
- * Takes string of numbers, adds them all together
+ * Takes string of numbers, finds max, min, biggest even, and sum of evens
  * 
  * @author Alexis Scheerer 
  * @version 11/4/2015
  */
+//FINAL VERSION IN OCT FOLDER
 import java.util.*;
 public class ProcessingNumbers
 {
