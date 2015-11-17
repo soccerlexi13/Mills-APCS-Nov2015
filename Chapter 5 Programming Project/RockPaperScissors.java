@@ -1,5 +1,5 @@
 /**
- * Write a description of class RockPaperScissors here.
+ * Rock Paper Scissors partner assignment
  * 
  * @author  Alexis Scheerer and Kathy Zhang
  * @version 11/13/15
@@ -20,6 +20,12 @@ public class RockPaperScissors
             System.out.println("What is your move?");
             playerMove=console.next(); //stores user input in variable playerMove
             playerMove=playerMove.toLowerCase(); //converts playerMove to all lowercase so it is easier to use
+            while (!(playerMove.equals("rock")) && !(playerMove.equals("paper")) && !(playerMove.equals("scissors"))){
+                //keeps asking for proper input if invalid
+                System.out.println("Invalid input, please enter rock, paper, or scissors.");
+                playerMove=console.next(); //stores user input in variable playerMove
+                playerMove=playerMove.toLowerCase(); //converts playerMove to all lowercase so it is easier to use
+            }
             computerMove=computerTurn(); //calls computerTurn to determine the computer's move
             System.out.println("Your move was "+playerMove+" and the computer's move was "+computerMove);
             //prints out tie/win/loss according to the two moves
