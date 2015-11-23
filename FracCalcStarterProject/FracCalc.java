@@ -24,6 +24,7 @@ public class FracCalc {
     { 
         //produces the solution to the input
         //index of first spaces needed to separate into two operands and operator
+        String answer;
         int firstSpaceIndex=input.indexOf(" ");
         String firstOperand=input.substring(0, firstSpaceIndex);
         String secondOperand=input.substring(firstSpaceIndex+3);
@@ -40,7 +41,21 @@ public class FracCalc {
         int firstWhole=findWhole(firstOperand, firstSlash, firstUnder);
         int firstNumerator=findNumerator(firstOperand, firstSlash, firstUnder);
         int firstDenominator=findDenominator(firstOperand, firstSlash);
-        return ("whole:"+secondWhole+" numerator:"+secondNumerator+" denominator:"+secondDenominator);
+        firstNumerator+=wholeAsNumerator(firstWhole, firstDenominator);
+        secondNumerator+=wholeAsNumerator(secondWhole, secondDenominator);
+        if(operator.equals("+")){
+            answer=addNums(firstNumerator, firstDenominator, secondNumerator, secondDenominator);
+        }
+        else if(operator.equals("-")){
+            answer=subtractNums(firstNumerator, firstDenominator, secondNumerator, secondDenominator);
+        }
+        else if(operator.equals("/")){
+            answer=divideNums(firstNumerator, firstDenominator, secondNumerator, secondDenominator);
+        }
+        else{
+            answer=multiplyNums(firstNumerator, firstDenominator, secondNumerator, secondDenominator);
+        }
+        return (answer);
     }
     public static int findNumerator(String operand, int slashIndex, int underIndex){
         //method to find numerator and convert it to int
@@ -53,7 +68,7 @@ public class FracCalc {
             }
             else{
                 //if no _, numerator is first number
-                numerator=Integer.parseInt(operand.substring(0, slashIndex));
+                numerator=Integer.parseInt(operand.substring(0, slashIndex), 10);
             }
         }
         return(numerator);
@@ -62,7 +77,7 @@ public class FracCalc {
         int denominator=1; //if no fraction, denom is always 1
         if (slashIndex>=0){
             //if slash, then there is a denom other than one, comes after slash
-            denominator=Integer.parseInt(operand.substring(slashIndex+1));
+            denominator=Integer.parseInt(operand.substring(slashIndex+1), 10);
         }
         return(denominator);
     }
@@ -70,12 +85,43 @@ public class FracCalc {
         int whole=0; //if not found, there is no whole so it is 0
         if (underIndex>=0){
             //is there is an _, whole is up until then
-            whole=Integer.parseInt(operand.substring(0, underIndex));
+            whole=Integer.parseInt(operand.substring(0, underIndex), 10);
         }
         else if(slashIndex==-1){
             //if no fraction, whole is entire operand
-            whole=Integer.parseInt(operand);
+            whole=Integer.parseInt(operand, 10);
         }
         return(whole);
+    }
+    public static String addNums(int numerator1, int denominator1, int numerator2, int denominator2){
+        numerator1*=denominator2;
+        numerator2*=denominator1;
+        denominator1*=denominator2;
+        denominator2=denominator1;
+        int answerNumerator=numerator1+numerator2;
+        int answerDenominator=denominator1;
+        return(answerNumerator+"/"+answerDenominator);
+    }
+    public static String subtractNums(int numerator1, int denominator1, int numerator2, int denominator2){
+        numerator1*=denominator2;
+        numerator2*=denominator1;
+        denominator1*=denominator2;
+        denominator2=denominator1;
+        int answerNumerator=numerator1-numerator2;
+        int answerDenominator=denominator1;
+        return(answerNumerator+"/"+answerDenominator);
+    }
+    public static String multiplyNums(int numerator1, int denominator1, int numerator2, int denominator2){
+        int answerNumerator=numerator1*numerator2;
+        int answerDenominator=denominator1*denominator2;
+        return(answerNumerator+"/"+answerDenominator);
+    }
+    public static String divideNums(int numerator1, int denominator1, int numerator2, int denominator2){
+        int answerNumerator=numerator1*denominator2;
+        int answerDenominator=denominator1*numerator2;
+        return(answerNumerator+"/"+answerDenominator);
+    }
+    public static int wholeAsNumerator(int whole, int denominator){
+        return(whole*denominator);
     }
 }
