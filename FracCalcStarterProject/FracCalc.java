@@ -44,16 +44,16 @@ public class FracCalc {
         firstNumerator+=wholeAsNumerator(firstWhole, firstDenominator);
         secondNumerator+=wholeAsNumerator(secondWhole, secondDenominator);
         if(operator.equals("+")){
-            answer=addNums(firstNumerator, firstDenominator, secondNumerator, secondDenominator);
+            answer=addOrSubtractNums(firstNumerator, firstDenominator, secondNumerator, secondDenominator);
         }
         else if(operator.equals("-")){
-            answer=subtractNums(firstNumerator, firstDenominator, secondNumerator, secondDenominator);
+            answer=addOrSubtractNums(firstNumerator, firstDenominator, secondNumerator*(-1), secondDenominator);
         }
         else if(operator.equals("/")){
-            answer=divideNums(firstNumerator, firstDenominator, secondNumerator, secondDenominator);
+            answer=multiplyOrDivideNums(firstNumerator, firstDenominator, secondDenominator, secondNumerator);
         }
         else{
-            answer=multiplyNums(firstNumerator, firstDenominator, secondNumerator, secondDenominator);
+            answer=multiplyOrDivideNums(firstNumerator, firstDenominator, secondNumerator, secondDenominator);
         }
         return (answer);
     }
@@ -93,35 +93,42 @@ public class FracCalc {
         }
         return(whole);
     }
-    public static String addNums(int numerator1, int denominator1, int numerator2, int denominator2){
+    public static String addOrSubtractNums(int numerator1, int denominator1, int numerator2, int denominator2){
         numerator1*=denominator2;
         numerator2*=denominator1;
-        denominator1*=denominator2;
-        denominator2=denominator1;
         int answerNumerator=numerator1+numerator2;
-        int answerDenominator=denominator1;
-        return(answerNumerator+"/"+answerDenominator);
+        int answerDenominator=denominator1*denominator2;
+        return(simplifySolution(answerNumerator, answerDenominator));
     }
-    public static String subtractNums(int numerator1, int denominator1, int numerator2, int denominator2){
-        numerator1*=denominator2;
-        numerator2*=denominator1;
-        denominator1*=denominator2;
-        denominator2=denominator1;
-        int answerNumerator=numerator1-numerator2;
-        int answerDenominator=denominator1;
-        return(answerNumerator+"/"+answerDenominator);
-    }
-    public static String multiplyNums(int numerator1, int denominator1, int numerator2, int denominator2){
+    public static String multiplyOrDivideNums(int numerator1, int denominator1, int numerator2, int denominator2){
         int answerNumerator=numerator1*numerator2;
         int answerDenominator=denominator1*denominator2;
-        return(answerNumerator+"/"+answerDenominator);
-    }
-    public static String divideNums(int numerator1, int denominator1, int numerator2, int denominator2){
-        int answerNumerator=numerator1*denominator2;
-        int answerDenominator=denominator1*numerator2;
-        return(answerNumerator+"/"+answerDenominator);
+        return(simplifySolution(answerNumerator, answerDenominator));
     }
     public static int wholeAsNumerator(int whole, int denominator){
         return(whole*denominator);
+    }
+    public static String simplifySolution(int numerator, int denominator){
+        int whole=numerator/denominator;
+        numerator %= denominator;
+        int greatestCF=1;
+        String answer;
+        for (int i=1; i<=Math.abs(denominator); i++){
+            if (denominator%i==0 && numerator%i==0){
+                greatestCF=i;
+            }
+        }
+        numerator /= greatestCF;
+        denominator /= greatestCF;
+        if (numerator>0){
+            answer= numerator+"/"+denominator;
+            if (whole>0){
+                answer=whole+"_"+answer;
+            }
+        }
+        else{
+            answer=Integer.toString(whole);
+        }
+        return answer;
     }
 }
