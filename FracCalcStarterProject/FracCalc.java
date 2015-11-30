@@ -1,10 +1,14 @@
- /* Fraction calculator project (checkpoint 1)
+ /* Fraction calculator project (checkpoint 3)
   * 
   * @Author Alexis Scheerer
   * @Version 11/20/15
   */
 import java.util.*;
 public class FracCalc {
+    /*
+       NOTES: TESTS DO NOT WORK WITH NEGATIVES WHEN THE WHOLE NUMBER IS NEGATIVE
+       IT'S BECAUSE WHEN THE WHOLE IS NEGATIVE YOU SUBTRACT FROM THE NUMERATOR WHEN YOU MAKE IT IMPROPER
+       */
     public static void main(String[] args) 
     {
        Scanner console=new Scanner(System.in);
@@ -20,8 +24,7 @@ public class FracCalc {
        }
         //reads the input from the user and calls produceAnswer with an equation
     }
-    public static String produceAnswer(String input)
-    { 
+    public static String produceAnswer(String input){ 
         //produces the solution to the input
         //index of first spaces needed to separate into two operands and operator
         String answer;
