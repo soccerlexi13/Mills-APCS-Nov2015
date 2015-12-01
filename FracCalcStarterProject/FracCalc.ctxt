@@ -1,7 +1,6 @@
 #BlueJ class context
 comment0.params=args
 comment0.target=void\ main(java.lang.String[])
-comment0.text=\r\n\ \ \ \ \ \ \ NOTES\:\ TESTS\ DO\ NOT\ WORK\ WITH\ NEGATIVES\ WHEN\ THE\ WHOLE\ NUMBER\ IS\ NEGATIVE\r\n\ \ \ \ \ \ \ IT'S\ BECAUSE\ WHEN\ THE\ WHOLE\ IS\ NEGATIVE\ YOU\ SUBTRACT\ FROM\ THE\ NUMERATOR\ WHEN\ YOU\ MAKE\ IT\ IMPROPER\r\n
 comment1.params=input
 comment1.target=java.lang.String\ produceAnswer(java.lang.String)
 comment2.params=operand\ slashIndex\ underIndex
@@ -14,8 +13,8 @@ comment5.params=numerator1\ denominator1\ numerator2\ denominator2
 comment5.target=java.lang.String\ addOrSubtractNums(int,\ int,\ int,\ int)
 comment6.params=numerator1\ denominator1\ numerator2\ denominator2
 comment6.target=java.lang.String\ multiplyOrDivideNums(int,\ int,\ int,\ int)
-comment7.params=whole\ denominator
-comment7.target=int\ wholeAsNumerator(int,\ int)
+comment7.params=whole\ denominator\ numerator
+comment7.target=int\ convertToImproper(int,\ int,\ int)
 comment8.params=numerator\ denominator
 comment8.target=java.lang.String\ simplifySolution(int,\ int)
 numComments=9

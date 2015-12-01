@@ -1,14 +1,10 @@
- /* Fraction calculator project (checkpoint 3)
+ /* Fraction calculator project Final
   * 
   * @Author Alexis Scheerer
   * @Version 11/20/15
   */
 import java.util.*;
 public class FracCalc {
-    /*
-       NOTES: TESTS DO NOT WORK WITH NEGATIVES WHEN THE WHOLE NUMBER IS NEGATIVE
-       IT'S BECAUSE WHEN THE WHOLE IS NEGATIVE YOU SUBTRACT FROM THE NUMERATOR WHEN YOU MAKE IT IMPROPER
-       */
     public static void main(String[] args) 
     {
        Scanner console=new Scanner(System.in);
@@ -44,8 +40,8 @@ public class FracCalc {
         int firstWhole=findWhole(firstOperand, firstSlash, firstUnder);
         int firstNumerator=findNumerator(firstOperand, firstSlash, firstUnder);
         int firstDenominator=findDenominator(firstOperand, firstSlash);
-        firstNumerator+=wholeAsNumerator(firstWhole, firstDenominator);
-        secondNumerator+=wholeAsNumerator(secondWhole, secondDenominator);
+        firstNumerator=convertToImproper(firstWhole, firstDenominator, firstNumerator);
+        secondNumerator=convertToImproper(secondWhole, secondDenominator, secondNumerator);
         if(operator.equals("+")){
             answer=addOrSubtractNums(firstNumerator, firstDenominator, secondNumerator, secondDenominator);
         }
@@ -53,6 +49,7 @@ public class FracCalc {
             answer=addOrSubtractNums(firstNumerator, firstDenominator, secondNumerator*(-1), secondDenominator);
         }
         else if(operator.equals("/")){
+            //switch second denom and second num so the method will work properly w/o if statements
             answer=multiplyOrDivideNums(firstNumerator, firstDenominator, secondDenominator, secondNumerator);
         }
         else{
@@ -97,6 +94,7 @@ public class FracCalc {
         return(whole);
     }
     public static String addOrSubtractNums(int numerator1, int denominator1, int numerator2, int denominator2){
+        //method called if + or -, uses same method to find common denom and add, then calls simplify
         numerator1*=denominator2;
         numerator2*=denominator1;
         int answerNumerator=numerator1+numerator2;
@@ -104,28 +102,51 @@ public class FracCalc {
         return(simplifySolution(answerNumerator, answerDenominator));
     }
     public static String multiplyOrDivideNums(int numerator1, int denominator1, int numerator2, int denominator2){
+        //method used with / or *, order switched for / so it can work, simplifies
         int answerNumerator=numerator1*numerator2;
         int answerDenominator=denominator1*denominator2;
         return(simplifySolution(answerNumerator, answerDenominator));
     }
-    public static int wholeAsNumerator(int whole, int denominator){
-        return(whole*denominator);
+    public static int convertToImproper(int whole, int denominator, int numerator){
+        //deals with negative numbers when changing the numerator to form an improper fraction
+        numerator+=Math.abs(whole)*denominator;
+        if (whole<0){ //deals with negative numbers
+            numerator*=-1;
+        }
+        return(numerator);
     }
     public static String simplifySolution(int numerator, int denominator){
+        //simplify solution to be returned by produceAnswer
+        String answer;
+        //turns into mixed number
         int whole=numerator/denominator;
         numerator %= denominator;
         int greatestCF=1;
-        String answer;
+        System.out.println("And now: "+whole+"_"+numerator+"/"+denominator);
+        //for loop used to find gcf to simplify fraction
         for (int i=1; i<=Math.abs(denominator); i++){
             if (denominator%i==0 && numerator%i==0){
                 greatestCF=i;
             }
         }
+        //simplifies fraction
         numerator /= greatestCF;
         denominator /= greatestCF;
-        if (numerator>0){
+        //deals wih negatives in fraction
+        if(!(whole==0)){
+            numerator=Math.abs(numerator);
+            denominator=Math.abs(denominator);
+        }
+        else{
+            if (denominator<0){
+                numerator*=-1;
+                denominator*=-1;
+            }
+        }
+        //creates final string to be returned, with _ and / if needed
+        if (Math.abs(numerator)>0){
             answer= numerator+"/"+denominator;
-            if (whole>0){
+            if (Math.abs(whole)>0){
                 answer=whole+"_"+answer;
             }
         }
