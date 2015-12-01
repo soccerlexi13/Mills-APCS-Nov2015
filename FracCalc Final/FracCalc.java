@@ -1,4 +1,4 @@
- /* Fraction calculator project checkpoint3
+ /* Fraction calculator project Final
   * 
   * @Author Alexis Scheerer
   * @Version 11/20/15
@@ -122,6 +122,7 @@ public class FracCalc {
         int whole=numerator/denominator;
         numerator %= denominator;
         int greatestCF=1;
+        System.out.println("And now: "+whole+"_"+numerator+"/"+denominator);
         //for loop used to find gcf to simplify fraction
         for (int i=1; i<=Math.abs(denominator); i++){
             if (denominator%i==0 && numerator%i==0){
