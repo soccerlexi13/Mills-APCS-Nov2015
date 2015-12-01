@@ -1,24 +1,23 @@
  /* Fraction calculator project Final
   * 
   * @Author Alexis Scheerer
-  * @Version 11/20/15
+  * @Version 11/30/15
   */
 import java.util.*;
 public class FracCalc {
-    public static void main(String[] args) 
-    {
+    public static void main(String[] args){
        Scanner console=new Scanner(System.in);
        String userInput;
        String keepGoing="yes";
        while (! (keepGoing.toLowerCase()).equals("quit")){
-           //while loop to keep receiving input until user decides to quit
+           //while loop to keep receiving input until user decides to quit;
            System.out.println("What is your equation?");
            userInput=console.nextLine();
            System.out.println(produceAnswer(userInput));
            System.out.println("Do you want to continue? (quit to exit)");
            keepGoing=console.nextLine();
        }
-        //reads the input from the user and calls produceAnswer with an equation
+       //reads the input from the user and calls produceAnswer with an equation
     }
     public static String produceAnswer(String input){ 
         //produces the solution to the input
@@ -55,6 +54,9 @@ public class FracCalc {
         else{
             answer=multiplyOrDivideNums(firstNumerator, firstDenominator, secondNumerator, secondDenominator);
         }
+        /*if(firstDenominator==0 || secondDenominator==0){
+            return("Invalid input, cannot divide by zero");
+        }*/
         return (answer);
     }
     public static int findNumerator(String operand, int slashIndex, int underIndex){
@@ -122,7 +124,6 @@ public class FracCalc {
         int whole=numerator/denominator;
         numerator %= denominator;
         int greatestCF=1;
-        System.out.println("And now: "+whole+"_"+numerator+"/"+denominator);
         //for loop used to find gcf to simplify fraction
         for (int i=1; i<=Math.abs(denominator); i++){
             if (denominator%i==0 && numerator%i==0){
@@ -133,7 +134,7 @@ public class FracCalc {
         numerator /= greatestCF;
         denominator /= greatestCF;
         //deals wih negatives in fraction
-        if(!(whole==0)){
+        if(whole!=0){
             numerator=Math.abs(numerator);
             denominator=Math.abs(denominator);
         }
@@ -144,9 +145,9 @@ public class FracCalc {
             }
         }
         //creates final string to be returned, with _ and / if needed
-        if (Math.abs(numerator)>0){
+        if (numerator!=0){
             answer= numerator+"/"+denominator;
-            if (Math.abs(whole)>0){
+            if (whole!=0){
                 answer=whole+"_"+answer;
             }
         }
