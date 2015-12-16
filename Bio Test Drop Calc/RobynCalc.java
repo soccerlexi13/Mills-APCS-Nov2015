@@ -1,14 +1,14 @@
 
 /**
- * Calculate which test grade I should drop for bio
+ * Calculate which test grade Robyn should drop for bio
  * 
  * @author Alexis Scheerer
- * @version 12/8/15
+ * @version 12/9/15
  */
-public class AnotherCalculator
+public class RobynCalc
 {
     public static void main(String[] args){
-        double[] testNum= {39.5, 31.0, 45.0, 41.0, 38.0, 57.0, 29.0};
+        double[] testNum= {47.5, 32.0, 45.0, 50.0, 43.5, 60.0, 30.5};
         double[] testDen= {50.0, 33.0, 46.0, 50.0, 45.0, 67.0, 34.0};
         System.out.println(findGradeToDrop(testNum, testDen));
     }

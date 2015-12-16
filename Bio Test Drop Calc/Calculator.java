@@ -8,8 +8,8 @@
 public class Calculator
 {
     public static void main(String[] args){
-        double[] testNum= {48.5, 31.0, 44.0, 50.0, 42.0, 64.0};
-        double[] testDen= {50.0, 33.0, 46.0, 50.0, 45.0, 67.0};
+        double[] testNum= {48.5, 31.0, 44.0, 50.0, 42.0, 64.0, 32.0};
+        double[] testDen= {50.0, 33.0, 46.0, 50.0, 45.0, 67.0, 34.0};
         System.out.println(findGradeToDrop(testNum, testDen));
     }
     public static String findGradeToDrop(double[] nums, double[] dens){
